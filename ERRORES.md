@@ -1,0 +1,1 @@
+//El principio SRP establece que una clase debe tener una sola razón para cambiar, es decir, una sola responsabilidad. En este caso, podemos ver que la clase Directory tiene varias responsabilidades, como mantener una lista de archivos y subdirectorios, y calcular su tamaño total. He añadido La clase DirectoryContent para no mantener la lista y el tamaño por sí sola.
