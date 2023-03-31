@@ -36,8 +36,7 @@ public class Directory extends FileSystemItemBase implements FileSystemItem {
     }
 
     @Override
-    public int getSize() {
-        return content.getSize();
+    public int getSize() {return content.getSize();
     }
 
     @Override

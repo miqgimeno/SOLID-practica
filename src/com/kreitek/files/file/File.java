@@ -1,17 +1,15 @@
 package com.kreitek.files.file;
 
 import com.kreitek.files.interfaces.FileSystemItem;
-
 import java.util.List;
 
-public  class File extends FileSystemItemBase implements FileSystemItem {
+public class File extends FileSystemItemBase implements FileSystemItem {
 
-    private int size = 0;
-    private boolean isOpen = false;
-    private int position = 0;
+    private final FileContent content;
 
     public File(FileSystemItem parent, String name) {
         super(parent, name);
+        content = new FileContent();
     }
 
     @Override
@@ -23,65 +21,42 @@ public  class File extends FileSystemItemBase implements FileSystemItem {
         }
         return extension;
     }
+    @Override
+    public int getSize() {return content.getSize();}
 
     @Override
-    public List<FileSystemItem> listFiles() {
-        throw new UnsupportedOperationException("No es válido para ficheros");
-    }
-
-    @Override
-    public void addFile(FileSystemItem file) {
-        throw new UnsupportedOperationException("No es válido para ficheros");
-    }
-
-    @Override
-    public void removeFile(FileSystemItem file) {
-        throw new UnsupportedOperationException("No es válido para ficheros");
-    }
-
-    @Override
-    public int getSize() {
-        return size;
-    }
-
-    @Override
-    public void open() {
-        isOpen = true;
+    public void open() { content.open();
         // Aquí vendría código que actualizaría también this.size
     }
 
     @Override
-    public void setPosition(int numberOfBytesFromBeginning) {
-        if (!isOpen) {
-            throw new UnsupportedOperationException("Debe abrir el fichero primero");
-        }
-        if (numberOfBytesFromBeginning > size) {
-            throw new UnsupportedOperationException("La posición no puede ser mayor que el tamaño del fichero");
-        }
-        this.position = numberOfBytesFromBeginning;
-    }
+    public void setPosition(int numberOfBytesFromBeginning) {content.setPosition(numberOfBytesFromBeginning);}
 
     @Override
-    public byte[] read(int numberOfBytesToRead) {
-        if (position + numberOfBytesToRead > size) {
-            numberOfBytesToRead = size - position;
-        }
-        // Aquí habría lógica que lee el contenido del fichero
-        byte[] buffer = new byte[numberOfBytesToRead];
-        position += numberOfBytesToRead;
-        return buffer;
-    }
+    public byte[] read(int numberOfBytesToRead) {return content.read(numberOfBytesToRead);}
 
     @Override
-    public void write(byte[] buffer) {
+    public void write(byte[] buffer) { content.write(buffer);
         // Aquí habría lógica que escribiría en el fichero
-        size += buffer.length;
-        position += buffer.length;
     }
 
     @Override
-    public void close() {
-        isOpen = false;
+    public void close() {content.close();}
+
+    //Estos 3 métodos no deberían de estar aquí
+    @Override
+    public List<FileSystemItem> listFiles() {
+        throw new UnsupportedOperationException("No es necesario en File");
+    }
+
+    @Override
+    public void addFile(FileSystemItem file) {
+        throw new UnsupportedOperationException("No es necesario en File");
+    }
+
+    @Override
+    public void removeFile(FileSystemItem file) {
+        throw new UnsupportedOperationException("No es necesario en File");
     }
 
 }

@@ -1,11 +1,12 @@
 package com.kreitek.files.directory;
 
+import com.kreitek.files.interfaces.DirectoryAccess;
 import com.kreitek.files.interfaces.FileSystemItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DirectoryContent{
+public class DirectoryContent implements DirectoryAccess {
     private final List<FileSystemItem> files;
     private int size;
 
