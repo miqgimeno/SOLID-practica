@@ -1,4 +1,6 @@
-package com.kreitek.files;
+package com.kreitek.files.directory;
+
+import com.kreitek.files.interfaces.FileSystemItem;
 
 import java.util.ArrayList;
 import java.util.List;
